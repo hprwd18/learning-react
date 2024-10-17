@@ -70,6 +70,7 @@ function Menu(){
     return (
     <main className="menu">
         <h2>Our Menu:</h2>
+        <div className="pizzas">
         {pizzaData.map((value, index) => (
         <Pizza 
         name={value.name} 
@@ -78,6 +79,7 @@ function Menu(){
         price={value.price}
         />
         ))}
+        </div>
     </main>
     );
 }
