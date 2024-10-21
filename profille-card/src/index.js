@@ -6,27 +6,27 @@ const hisSkill = [
   {
     skill: "HTML+CSS",
     color: "red",
-    emoji: "em em-dragon",
+    level: "advanced",
   },
   {
     skill: "PHP",
     color: "yellow",
-    emoji: "em em-dog",
+    level: "advanced",
   },
   {
     skill: "JavaScript",
     color: "blue",
-    emoji: "em em-bear",
+    level: "intermediate",
   },
   {
     skill: "Yii Framework",
     color: "gray",
-    emoji: "em em-egg",
+    level: "intermediate",
   },
   {
     skill: "ReactJs",
     color: "orange",
-    emoji: "em em-cheese_wedge",
+    level: "beginner",
   },
 ];
 
@@ -62,12 +62,21 @@ function SkillList(){
     <div className="skill-list">
       <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet" />
       {hisSkill.map((value, index) => (
-        <div className="skill" style={{ background: value.color }} key={index}>
-        {value.skill}
-        <i class={value.emoji} />
-        </div>
+        <Skill color={value.color} skill={value.skill} level={value.level} />
         ))}
     </div>
+  )
+}
+function Skill({color, skill, level}){
+  return (
+    <div className="skill" style={{ background: color }}>
+        {skill}
+        <span>
+          {level === "beginner" && "👶"}
+          {level === "intermediate" && "👍"}
+          {level === "advanced" && "💪"}
+        </span>
+      </div>
   )
 }
 

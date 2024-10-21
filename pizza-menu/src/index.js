@@ -67,32 +67,37 @@ function Header() {
     )
 }
 function Menu(){
+  const pizzas = pizzaData
+  // const pizzas = []
+  const lngt = pizzas.length
     return (
     <main className="menu">
         <h2>Our Menu:</h2>
-        <div className="pizzas">
-        {pizzaData.map((value, index) => (
-        <Pizza 
-        name={value.name} 
-        ingredients={value.ingredients} 
-        url={value.photoName}
-        price={value.price}
-        />
-        ))}
-        </div>
+
+        {lngt > 0 ? (
+          <>
+          <p>Authentic Pizza's here!</p>
+          <ul className="pizzas">
+            {pizzas.map((value, index) => (
+            <Pizza pizzaObj={value} />
+            ))}
+          </ul>
+          </>
+      ) : <p>Cooming soon!</p>}
+        
     </main>
     );
 }
-function Pizza(props){
+function Pizza({pizzaObj}){
     return (
-    <div className="pizza">
-        <img src={props.url} alt={props.name}/>
+    <li className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
+        <img src={pizzaObj.photoName} alt={pizzaObj.name}/>
         <div>
-        <h3>{props.name}</h3>
-        <p>{props.ingredients}</p>
-        <span>{props.price}</span>
+        <h3>{pizzaObj.name}</h3>
+        <p>{pizzaObj.ingredients}</p>
+        <span>{pizzaObj.soldOut ? "Sold Out!" : pizzaObj.price}</span>
         </div>
-    </div>
+    </li>
     );
 }
 function Footer(){
@@ -100,7 +105,12 @@ function Footer(){
     const open = 12;
     const closed = 22;
     const isOpen = hour >= open && hour <= closed
-    return <footer className="footer">We opening soon!</footer>
+    if(!isOpen) return <p>Closed</p>
+    return (
+    <footer className="footer">
+      {isOpen && (<div className="order"><p>We're open until {closed}:00. Come visit us or order online.</p><button className="btn">Order!</button></div>)}
+    </footer>
+    )
 }
 
 const root = ReactDom.createRoot(document.getElementById("root"))
